@@ -1,19 +1,265 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Switch,
+  Text,
+  View,
+} from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 const Details = () => {
+  const router = useRouter();
+  const params = useLocalSearchParams();
+
+  // Extract parameters passed from Home or Menu
+  const {
+    title = "Oat Sea Salt Cortado",
+    category = "Signature",
+    price = "42000",
+    origin = "Single Origin Gayo Washed · Catatan rasa dark chocolate dan caramel.",
+    temp = "Iced",
+  } = params;
+
+  // Customization State
+  const [selectedTemp, setSelectedTemp] = useState(
+    temp === "Hot" ? "Hot (Hangat)" : "Iced (Dingin)"
+  );
+  const [selectedMilk, setSelectedMilk] = useState("Oat Milk");
+  const [milkExtra, setMilkExtra] = useState(0);
+  const [selectedSugar, setSelectedSugar] = useState("50% (Sedang)");
+  const [extraShot, setExtraShot] = useState(false);
+  const [qty, setQty] = useState(1);
+
+  // Live total calculation
+  const basePrice = Number(price) || 42000;
+  const unitPrice = basePrice + milkExtra + (extraShot ? 8000 : 0);
+  const totalPrice = unitPrice * qty;
+
+  const handleMilkSelect = (milk, extra) => {
+    setSelectedMilk(milk);
+    setMilkExtra(extra);
+  };
+
+  const handleAddToCart = () => {
+    Alert.alert(
+      "Berhasil Ditambahkan! ☕",
+      `${qty}x ${title} (${selectedTemp}, ${selectedMilk}) berhasil dimasukkan ke daftar pesanan.`,
+      [
+        { text: "Lanjut Belanja", onPress: () => router.back() },
+        { text: "Lihat Pesanan", onPress: () => router.navigate("/orders") },
+      ]
+    );
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Detail Screen</Text>
+    <View style={{ flex: 1, backgroundColor: "#F1F0EA" }}>
+      <ScrollView contentContainerStyle={styles.container}>
+        {/* Product Showcase Container */}
+        <View style={styles.showcaseCard}>
+          <View style={styles.iconBox}>
+            <Feather name="coffee" size={40} color="#2D232E" />
+          </View>
+          <View style={styles.tagBadge}>
+            <Text style={styles.tagText}>{category.toUpperCase()}</Text>
+          </View>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.origin}>{origin}</Text>
+          <Text style={styles.basePrice}>
+            Rp {Number(price).toLocaleString("id-ID")}
+          </Text>
+        </View>
+        {/* End Product Showcase Container */}
+
+      </ScrollView>
+
+      {/* Sticky Bottom Bar Container */}
+      <View style={styles.bottomBar}>
+        <View style={styles.stepper}>
+          <Pressable
+            style={styles.stepBtn}
+            onPress={() => setQty((q) => Math.max(1, q - 1))}
+          >
+            <Text style={styles.stepText}>-</Text>
+          </Pressable>
+          <Text style={styles.qtyText}>{qty}</Text>
+          <Pressable style={styles.stepBtn} onPress={() => setQty((q) => q + 1)}>
+            <Text style={styles.stepText}>+</Text>
+          </Pressable>
+        </View>
+
+        <Pressable style={styles.addButton} onPress={handleAddToCart}>
+          <Text style={styles.addText}>Tambah Pesanan</Text>
+          <Text style={styles.addPrice}>
+            Rp {totalPrice.toLocaleString("id-ID")}
+          </Text>
+        </Pressable>
+      </View>
+      {/* End Sticky Bottom Bar Container */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    padding: 20,
+    paddingBottom: 110,
+    gap: 14,
+  },
+  showcaseCard: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 18,
+    padding: 20,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "rgba(45, 35, 46, 0.1)",
+    gap: 6,
+  },
+  iconBox: {
+    width: 72,
+    height: 72,
+    borderRadius: 16,
+    backgroundColor: "#E0DDCF",
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 4,
+  },
+  tagBadge: {
+    backgroundColor: "#F1F0EA",
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: 20,
+  },
+  tagText: {
+    fontSize: 10,
+    fontWeight: "800",
+    color: "#534B52",
+    letterSpacing: 0.5,
+  },
+  title: {
+    fontSize: 19,
+    fontWeight: "800",
+    color: "#2D232E",
+  },
+  origin: {
+    fontSize: 12,
+    color: "#474448",
+    textAlign: "center",
+    lineHeight: 16,
+  },
+  basePrice: {
+    fontSize: 17,
+    fontWeight: "800",
+    color: "#2D232E",
+    marginTop: 4,
+  },
+  optionBox: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 14,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: "rgba(45, 35, 46, 0.1)",
+    gap: 8,
+  },
+  optionTitle: {
+    fontSize: 11,
+    fontWeight: "800",
+    color: "#534B52",
+    letterSpacing: 0.5,
+  },
+  pillsRow: {
+    flexDirection: "row",
+    gap: 8,
+  },
+  pill: {
+    flex: 1,
+    backgroundColor: "#F1F0EA",
+    paddingVertical: 8,
+    alignItems: "center",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "rgba(45, 35, 46, 0.08)",
+  },
+  pillActive: {
+    backgroundColor: "#2D232E",
+    borderColor: "#2D232E",
+  },
+  pillText: {
+    fontSize: 11.5,
+    fontWeight: "600",
+    color: "#474448",
+  },
+  pillTextActive: {
+    color: "#FFFFFF",
+    fontWeight: "700",
+  },
+  switchRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  bottomBar: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "#FFFFFF",
+    borderTopWidth: 1,
+    borderTopColor: "rgba(45, 35, 46, 0.1)",
+    paddingHorizontal: 20,
+    paddingTop: 12,
+    paddingBottom: 24,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  stepper: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F1F0EA",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "rgba(45, 35, 46, 0.1)",
+  },
+  stepBtn: {
+    width: 32,
+    height: 32,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  stepText: {
+    fontSize: 16,
+    fontWeight: "800",
+    color: "#2D232E",
+  },
+  qtyText: {
+    fontSize: 13,
+    fontWeight: "800",
+    color: "#2D232E",
+    paddingHorizontal: 8,
+  },
+  addButton: {
+    flex: 1,
+    backgroundColor: "#2D232E",
+    borderRadius: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  addText: {
+    color: "#FFFFFF",
+    fontSize: 13,
+    fontWeight: "700",
+  },
+  addPrice: {
+    color: "#FFFFFF",
+    fontSize: 13,
+    fontWeight: "800",
   },
 });
 
