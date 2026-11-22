@@ -121,6 +121,35 @@ const Menu = () => {
       </View>
       {/* End Search Bar Container */}
 
+      {/* Category Filter Container */}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.categoryScrollView}
+        contentContainerStyle={styles.categoryContainer}
+      >
+        {categories.map((cat) => (
+          <Pressable
+            key={cat}
+            style={({ pressed }) => [
+              styles.categoryChip,
+              selectedCategory === cat && styles.categoryChipActive,
+              pressed && { opacity: 0.8 },
+            ]}
+            onPress={() => setSelectedCategory(cat)}
+          >
+            <Text
+              style={[
+                styles.categoryText,
+                selectedCategory === cat && styles.categoryTextActive,
+              ]}
+            >
+              {cat}
+            </Text>
+          </Pressable>
+        ))}
+      </ScrollView>
+      {/* End Category Filter Container */}
 
       {/* Product List Container */}
       <FlatList
