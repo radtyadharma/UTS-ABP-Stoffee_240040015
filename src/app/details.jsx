@@ -74,6 +74,55 @@ const Details = () => {
         </View>
         {/* End Product Showcase Container */}
 
+        {/* Temperature Container */}
+        <View style={styles.optionBox}>
+          <Text style={styles.optionTitle}>TEMPERATUR PENYAJIAN</Text>
+          <View style={styles.pillsRow}>
+            {["Iced (Dingin)", "Hot (Hangat)"].map((t) => (
+              <Pressable
+                key={t}
+                style={[styles.pill, selectedTemp === t && styles.pillActive]}
+                onPress={() => setSelectedTemp(t)}
+              >
+                <Text
+                  style={[styles.pillText, selectedTemp === t && styles.pillTextActive]}
+                >
+                  {t}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        </View>
+        {/* End Temperature Container */}
+
+        {/* Milk Base Container */}
+        <View style={styles.optionBox}>
+          <Text style={styles.optionTitle}>PILIHAN SUSU</Text>
+          <View style={styles.pillsRow}>
+            {[
+              { label: "Oat Milk (+0)", name: "Oat Milk", extra: 0 },
+              { label: "Fresh Milk", name: "Fresh Milk", extra: 0 },
+              { label: "Almond (+6k)", name: "Almond Milk", extra: 6000 },
+            ].map((m) => (
+              <Pressable
+                key={m.name}
+                style={[styles.pill, selectedMilk === m.name && styles.pillActive]}
+                onPress={() => handleMilkSelect(m.name, m.extra)}
+              >
+                <Text
+                  style={[
+                    styles.pillText,
+                    selectedMilk === m.name && styles.pillTextActive,
+                  ]}
+                >
+                  {m.label}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        </View>
+        {/* End Milk Base Container */}
+
       </ScrollView>
 
       {/* Sticky Bottom Bar Container */}
