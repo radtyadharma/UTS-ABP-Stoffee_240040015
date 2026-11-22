@@ -106,7 +106,66 @@ const Index = () => {
         </ScrollView>
         {/* End Category Container */}
 
+        {/* Hero Card Container */}
+        <View style={styles.heroCard}>
+          <View style={styles.badgeContainer}>
+            <Text style={styles.badgeText}>BARISTA SPECIAL</Text>
+          </View>
+          <Text style={styles.heroTitle}>Oat Sea Salt Cortado</Text>
+          <Text style={styles.heroDesc}>
+            Double ristretto diekstrak di atas susu oat Swedia dengan taburan sea salt caramel gurih.
+          </Text>
+          <View style={styles.heroFooter}>
+            <Text style={styles.heroPrice}>Rp 42.000</Text>
+            <Pressable
+              style={styles.heroButton}
+              onPress={() =>
+                router.push({
+                  pathname: "/details",
+                  params: popularCoffees[0],
+                })
+              }
+            >
+              <Text style={styles.heroButtonText}>Pesan Sekarang</Text>
+              <Feather name="arrow-right" size={14} color="#FFFFFF" />
+            </Pressable>
+          </View>
+        </View>
+        {/* End Hero Card Container */}
+        {/* Popular Menu Container */}
+        <View style={styles.popularContainer}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Pilihan Terpopuler</Text>
+            <Pressable onPress={() => router.navigate("/menu")}>
+              <Text style={styles.linkText}>Lihat Semua →</Text>
+            </Pressable>
+          </View>
 
+          {popularCoffees.map((item) => (
+            <Pressable
+              key={item.id}
+              style={styles.productCard}
+              onPress={() =>
+                router.push({
+                  pathname: "/details",
+                  params: item,
+                })
+              }
+            >
+              <View style={styles.productIconBox}>
+                <Feather name="coffee" size={24} color="#2D232E" />
+              </View>
+              <View style={styles.productInfo}>
+                <Text style={styles.productTitle}>{item.title}</Text>
+                <Text style={styles.productNotes}>{item.notes}</Text>
+                <Text style={styles.productPrice}>
+                  Rp {Number(item.price).toLocaleString("id-ID")}
+                </Text>
+              </View>
+            </Pressable>
+          ))}
+        </View>
+        {/* End Popular Menu Container */}
       </ScrollView>
     </SafeAreaView>
   );
