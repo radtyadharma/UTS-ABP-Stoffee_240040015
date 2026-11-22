@@ -123,6 +123,45 @@ const Details = () => {
         </View>
         {/* End Milk Base Container */}
 
+        {/* Sweetness Container */}
+        <View style={styles.optionBox}>
+          <Text style={styles.optionTitle}>TINGKAT KEMANISAN</Text>
+          <View style={styles.pillsRow}>
+            {["50% (Sedang)", "100% (Normal)", "0% (Tanpa Gula)"].map((s) => (
+              <Pressable
+                key={s}
+                style={[styles.pill, selectedSugar === s && styles.pillActive]}
+                onPress={() => setSelectedSugar(s)}
+              >
+                <Text
+                  style={[styles.pillText, selectedSugar === s && styles.pillTextActive]}
+                >
+                  {s}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        </View>
+        {/* End Sweetness Container */}
+
+        {/* Extra Shot Switch Container */}
+        <View style={[styles.optionBox, styles.switchRow]}>
+          <View>
+            <Text style={{ fontSize: 13, fontWeight: "700", color: "#2D232E" }}>
+              Extra Double Ristretto Shot
+            </Text>
+            <Text style={{ fontSize: 11, color: "#474448", marginTop: 2 }}>
+              Kopi lebih pekat & bold (+Rp 8.000)
+            </Text>
+          </View>
+          <Switch
+            value={extraShot}
+            onValueChange={setExtraShot}
+            trackColor={{ false: "#D9D5CC", true: "#2D232E" }}
+            thumbColor={extraShot ? "#E0DDCF" : "#FFFFFF"}
+          />
+        </View>
+        {/* End Extra Shot Switch Container */}
       </ScrollView>
 
       {/* Sticky Bottom Bar Container */}
