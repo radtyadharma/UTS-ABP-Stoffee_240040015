@@ -103,6 +103,24 @@ const Menu = () => {
 
   return (
     <View style={styles.container}>
+      {/* Search Bar Container */}
+      <View style={styles.searchContainer}>
+        <Feather name="search" size={18} color="#474448" />
+        <TextInput
+          placeholder="Cari menu kopi atau pastry..."
+          placeholderTextColor="#8C8885"
+          value={search}
+          onChangeText={setSearch}
+          style={styles.searchInput}
+        />
+        {search.length > 0 && (
+          <Pressable onPress={() => setSearch("")}>
+            <Feather name="x" size={18} color="#474448" />
+          </Pressable>
+        )}
+      </View>
+      {/* End Search Bar Container */}
+
 
       {/* Product List Container */}
       <FlatList
