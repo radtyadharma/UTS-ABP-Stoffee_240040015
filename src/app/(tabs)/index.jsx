@@ -132,6 +132,7 @@ const Index = () => {
           </View>
         </View>
         {/* End Hero Card Container */}
+
         {/* Popular Menu Container */}
         <View style={styles.popularContainer}>
           <View style={styles.sectionHeader}>
