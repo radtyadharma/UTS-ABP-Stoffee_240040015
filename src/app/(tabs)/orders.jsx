@@ -121,6 +121,192 @@ const Orders = () => {
       </View>
       {/* End Cart Items Container */}
 
+      {/* Bill Summary Container */}
+      {items.length > 0 && (
+        <View style={styles.billCard}>
+          <Text style={styles.billTitle}>Rincian Tagihan</Text>
+
+          <View style={styles.billRow}>
+            <Text style={styles.billLabel}>Subtotal</Text>
+            <Text style={styles.billValue}>Rp {subtotal.toLocaleString("id-ID")}</Text>
+          </View>
+
+          <View style={styles.billRow}>
+            <Text style={styles.billLabel}>Pajak Restoran PB1 (10%)</Text>
+            <Text style={styles.billValue}>Rp {tax.toLocaleString("id-ID")}</Text>
+          </View>
+
+          <View style={styles.billRow}>
+            <Text style={[styles.billLabel, { color: "#2E7D32" }]}>
+              Voucher Diskon (STOFFEE10)
+            </Text>
+            <Text style={[styles.billValue, { color: "#2E7D32" }]}>
+              -Rp {discount.toLocaleString("id-ID")}
+            </Text>
+          </View>
+
+          <View style={styles.separator} />
+
+          <View style={styles.billRow}>
+            <Text style={styles.totalLabel}>Total Pembayaran</Text>
+            <Text style={styles.totalValue}>Rp {grandTotal.toLocaleString("id-ID")}</Text>
+          </View>
+
+          <Pressable style={styles.checkoutButton} onPress={handleCheckout}>
+            <Text style={styles.checkoutText}>
+              Place Order Sekarang · Rp {grandTotal.toLocaleString("id-ID")}
+            </Text>
+          </Pressable>
+        </View>
+      )}
+      {/* End Bill Summary Container */}
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F1F0EA",
+    padding: 20,
+  },
+  typeContainer: {
+    flexDirection: "row",
+    backgroundColor: "#E0DDCF",
+    borderRadius: 12,
+    padding: 3,
+  },
+  typeButton: {
+    flex: 1,
+    paddingVertical: 9,
+    alignItems: "center",
+    borderRadius: 10,
+  },
+  typeButtonActive: {
+    backgroundColor: "#2D232E",
+  },
+  typeText: {
+    fontSize: 12,
+    fontWeight: "600",
+    color: "#474448",
+  },
+  typeTextActive: {
+    color: "#FFFFFF",
+    fontWeight: "700",
+  },
+  cartCard: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    padding: 14,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: "rgba(45, 35, 46, 0.1)",
+  },
+  cartTitle: {
+    fontSize: 14,
+    fontWeight: "700",
+    color: "#2D232E",
+  },
+  cartDesc: {
+    fontSize: 11,
+    color: "#474448",
+    marginTop: 2,
+  },
+  cartPrice: {
+    fontSize: 13,
+    fontWeight: "800",
+    color: "#2D232E",
+    marginTop: 6,
+  },
+  stepper: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F1F0EA",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "rgba(45, 35, 46, 0.1)",
+  },
+  stepBtn: {
+    width: 28,
+    height: 28,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  stepText: {
+    fontSize: 15,
+    fontWeight: "800",
+    color: "#2D232E",
+  },
+  qtyText: {
+    fontSize: 12,
+    fontWeight: "700",
+    color: "#2D232E",
+    paddingHorizontal: 6,
+  },
+  billCard: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: "rgba(45, 35, 46, 0.1)",
+    gap: 8,
+  },
+  billTitle: {
+    fontSize: 15,
+    fontWeight: "800",
+    color: "#2D232E",
+    marginBottom: 4,
+  },
+  billRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  billLabel: {
+    fontSize: 12,
+    color: "#474448",
+  },
+  billValue: {
+    fontSize: 12,
+    fontWeight: "700",
+    color: "#2D232E",
+  },
+  separator: {
+    borderTopWidth: 1,
+    borderColor: "rgba(45, 35, 46, 0.08)",
+    marginVertical: 4,
+  },
+  totalLabel: {
+    fontSize: 14,
+    fontWeight: "800",
+    color: "#2D232E",
+  },
+  totalValue: {
+    fontSize: 16,
+    fontWeight: "800",
+    color: "#2D232E",
+  },
+  checkoutButton: {
+    backgroundColor: "#2D232E",
+    borderRadius: 12,
+    paddingVertical: 12,
+    alignItems: "center",
+    marginTop: 8,
+  },
+  checkoutText: {
+    color: "#FFFFFF",
+    fontSize: 13,
+    fontWeight: "700",
+  },
+  emptyContainer: {
+    alignItems: "center",
+    paddingVertical: 40,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: "rgba(45, 35, 46, 0.1)",
+  },
+});
+
+export default Orders;
