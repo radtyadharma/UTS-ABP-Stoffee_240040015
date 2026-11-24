@@ -1,122 +1,171 @@
 # ☕ Stoffee — Artisan Coffee & Bakery Ordering App
 
-> **Tugas Ujian Tengah Semester (UTS) — Mata Kuliah: Aplikasi Berbasis Platform (ABP)**  
-> **Framework:** React Native Expo (Expo Router) • **Format:** 100% Modular `.jsx`  
-> **Gaya Kode:** Mengikuti standar repositori dosen (`https://github.com/sunariku/cms-expo`)  
-> **Tema:** Katalog & Pemesanan Kopi Artisan & Viennoiserie Modern  
-> **Prinsip Pengembangan:** Ringkas, Bersih, dan Terstruktur (*Ponytail / Senior Clean Code*)
+<div align="center">
+
+![Expo](https://img.shields.io/badge/Expo-SDK%2058-000020?style=for-the-badge&logo=expo&logoColor=white)
+![React Native](https://img.shields.io/badge/React%20Native-0.88-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Expo Router](https://img.shields.io/badge/Expo%20Router-File%20Based-2D232E?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+**Tugas Ujian Tengah Semester (UTS) — Aplikasi Berbasis Platform**
+
+Aplikasi pemesanan kopi artisan & bakery dengan alur kustomisasi minuman yang lengkap,
+dibangun menggunakan **React Native (Expo)** dan **Expo Router**.
+
+</div>
 
 ---
 
-## 📋 1. Ringkasan Proyek
+## 📱 Tentang Aplikasi
 
-**Stoffee** adalah aplikasi pemesanan kopi artisan dan *viennoiserie* yang dibangun menggunakan **Expo Router** dengan struktur berkas berbasis rute (*file-based routing*), persis seperti gaya penulisan pada repositori referensi dosen pembimbing (`sunariku/cms-expo`).
+**Stoffee** adalah prototipe aplikasi mobile *cross-platform* untuk pemesanan kopi artisan dan
+*viennoiserie* (pastry Prancis). Pengguna dapat menjelajahi katalog menu, mencari & memfilter
+menu berdasarkan kategori, melakukan kustomisasi minuman (temperatur, jenis susu, tingkat
+kemanisan, hingga *extra shot*), melihat keranjang belanja dengan kalkulasi tagihan otomatis,
+serta memiliki kartu *loyalty stamp* digital.
 
-Aplikasi ini memenuhi seluruh kriteria dan spesifikasi teknis **UTS Aplikasi Berbasis Platform**:
-- **Arsitektur Navigasi Hybrid (Bobot 25%):** Kombinasi **Bottom Tabs** (`Home`, `Menu`, `Orders`, `Profile`) dan **Native Stack** (`details.jsx`) menggunakan Expo Router dengan pengiriman parameter dinamis (`useLocalSearchParams`).
-- **Eksekusi Expo & Stabilitas (Bobot 15%):** Lolos **20/20 pemeriksaan `npx expo-doctor`** tanpa error/warning.
-- **UI/UX & Desain Palet Warna (Bobot 15%):** Menerapkan palet warna Coolors (`#2D232E`, `#474448`, `#534B52`, `#E0DDCF`, `#F1F0EA`, `#FFFFFF`) dengan kontras rasio WCAG AAA.
-- **Kualitas Kode & Kesederhanaan (Bobot 10%):** Struktur folder ringkas tanpa *over-engineering* atau lapisan abstraksi berlebih, setiap komponen ditulis secara fungsional dalam format `.jsx` yang mudah dipahami mahasiswa.
-- **Legalitas Aset & Dokumentasi (Bobot 15%):** 100% aset terbuka dan bebas royalti (*MIT License / Open Source*).
-- **Presentasi & Live Demo (Bobot 20%):** Alur demo 2 menit yang lancar dan mudah dijelaskan kepada penguji.
-
----
-
-## 🎨 2. Palet Warna (Coolors Palette)
-
-| Kode Hex | Nama Warna | Peran Desain (Design Token) | Penerapan UI di Stoffee |
-|:---:|:---|:---|:---|
-| **`#2D232E`** | Deep Espresso Plum | Primary Ink / Display Dark | Header stack, teks judul, angka harga tebal, tombol aksi solid (*Add to Order*, *Place Order*), kartu stamp loyalitas, dan status tab aktif. |
-| **`#474448`** | Slate Charcoal | Neutral Medium / Secondary Text | Catatan rasa (*Tasting notes*), deskripsi produk, subjudul menu, dan ikon tidak aktif. |
-| **`#534B52`** | Muted Mocha | Tertiary Neutral / Accents | Label kategori *uppercase*, tagar kurasi, dan garis pembatas halus. |
-| **`#E0DDCF`** | Warm Oat Milk Cream | Warm Surface Accent | Chip filter kategori, kartu highlight barista, dan indikator stamp loyalitas. |
-| **`#F1F0EA`** | Alabaster Canvas | App Canvas Background | Latar belakang seluruh halaman aplikasi (hangat, lembut, dan nyaman di mata). |
-| **`#FFFFFF`** | Pure White | Elevated Card Surface | Kontainer kartu menu, kartu kustomisasi minuman, modal keranjang, dan tab bar. |
+**Target pengguna:** pelanggan kafe urban di Bandung yang menginginkan pemesanan cepat tanpa
+antre di kasir.
 
 ---
 
-## 📁 3. Struktur Direktori Proyek (Standar `sunariku/cms-expo`)
+## ✨ Fitur Utama
 
-Struktur folder mengadopsi pola *file-based routing* Expo Router yang ringkas dan rapi:
+| Fitur | Deskripsi |
+|---|---|
+| 🔍 **Pencarian & Filter** | Cari menu secara *real-time* dan filter berdasarkan kategori (Signature, Espresso, Cold Brew, Pastry) |
+| 🧋 **Kustomisasi Minuman** | Pilih temperatur, jenis susu (Oat/Fresh/Almond), tingkat kemanisan, dan *extra shot* dengan perhitungan harga *live* |
+| 🛒 **Keranjang Terhubung** | Hasil kustomisasi tersimpan ke keranjang melalui **CartContext** (state bersama antar layar) |
+| 🧾 **Kalkulasi Tagihan** | Subtotal, Pajak Restoran PB1 10%, voucher diskon, dan total pembayaran dihitung otomatis |
+| ☕ **Kartu Loyalitas Digital** | Kartu *stamp* 8 kotak dengan progress pengumpulan poin |
+| 📲 **Deep Linking** | Skema URL `stoffee://` untuk navigasi eksternal |
+
+---
+
+## 🖼️ Tampilan Aplikasi
+
+<div align="center">
+
+| Home | Detail & Kustomisasi | Katalog Menu |
+|:---:|:---:|:---:|
+| ![Home](assets/screenshots/coffee_01_home.png) | ![Detail](assets/screenshots/coffee_02_product_detail.png) | ![Menu](assets/screenshots/coffee_03_menu_catalog.png) |
+| **Keranjang & Tagihan** | **Profil & Loyalitas** | **Palet Warna** |
+| ![Orders](assets/screenshots/coffee_04_orders_cart.png) | ![Profile](assets/screenshots/coffee_05_profile_rewards.png) | ![Palette](assets/screenshots/palette.png) |
+
+</div>
+
+---
+
+## 🧭 Alur Navigasi (Stack + Bottom Tab)
+
+Aplikasi menggunakan **dua jenis navigasi sekaligus** sesuai spesifikasi UTS:
 
 ```
-stoffee/
-├── assets/                         # Aset gambar, ikon, dan splash screen
+Root Stack (src/app/_layout.jsx)
+│
+├── (tabs)  →  Bottom Tab Navigator (src/app/(tabs)/_layout.jsx)
+│   ├── index.jsx    → 🏠 Home       (dashboard & barista special)
+│   ├── menu.jsx     → ☕ Menu       (katalog, pencarian, filter)
+│   ├── orders.jsx   → 🛒 Pesanan    (keranjang, tagihan, checkout)
+│   └── profile.jsx  → 👤 Profil     (loyalty stamp & info gerai)
+│
+└── details.jsx → 📄 Detail Menu (stack push, menerima params dinamis)
+```
+
+**Alur pengiriman parameter dinamis** dari Menu ke halaman Detail:
+
+```jsx
+// Mengirim data menu ke halaman detail:
+router.push({ pathname: "/details", params: item });
+
+// Menerima data di details.jsx:
+const { id, title, price, origin, temp, type } = useLocalSearchParams();
+```
+
+---
+
+## 🎨 Palet Warna
+
+| Swatch | Hex | Peran |
+|:---:|:---|:---|
+| 🟤 | `#2D232E` | Primary — teks judul, tombol aksi, header |
+| ⚫ | `#474448` | Secondary — deskripsi & teks pendukung |
+| 🩶 | `#534B52` | Tertiary — label kategori & aksen |
+| 🟡 | `#E0DDCF` | Accent — chip filter & stamp loyalitas |
+| ⬜ | `#F1F0EA` | Background — latar belakang aplikasi |
+| ⬜ | `#FFFFFF` | Surface — kartu & kontainer |
+
+---
+
+## 📁 Struktur Proyek
+
+```
+UTS-ABP-Stoffee_240040015/
+├── assets/                     # Ikon, splash screen, dan screenshot
+│   └── screenshots/            # Bukti visual seluruh halaman
 ├── src/
-│   └── app/                        # Direktori utama Expo Router
-│       ├── _layout.jsx             # Root Stack Navigator (menampung tabs & details)
-│       ├── details.jsx             # Stack Detail Screen (Kustomisasi minuman & params)
-│       └── (tabs)/                 # Bottom Tab Navigator Group
-│           ├── _layout.jsx         # Konfigurasi 4 Tab Bar (Home, Menu, Orders, Profile)
-│           ├── index.jsx           # Tab 1: Home Dashboard & Barista Special
-│           ├── menu.jsx            # Tab 2: Menu & Katalog Kopi (Pencarian & Filter)
-│           ├── orders.jsx          # Tab 3: Keranjang Pesanan, Kalkulasi Biaya & Checkout
-│           └── profile.jsx         # Tab 4: Profil Pelanggan & Kartu Stamp Loyalitas
-├── app.json                        # Konfigurasi Expo Router & skema deep linking
-├── package.json                    # Dependensi dan script build
-└── README.md                       # Dokumentasi repositori
+│   ├── app/                    # Expo Router (file-based routing)
+│   │   ├── _layout.jsx         # Root Stack + CartProvider
+│   │   ├── details.jsx         # Detail Menu + kustomisasi minuman
+│   │   └── (tabs)/
+│   │       ├── _layout.jsx     # Bottom Tab Navigator
+│   │       ├── index.jsx       # Home
+│   │       ├── menu.jsx        # Menu & Katalog
+│   │       ├── orders.jsx      # Keranjang & Checkout
+│   │       └── profile.jsx     # Profil & Loyalitas
+│   └── context/
+│       └── CartContext.jsx     # State keranjang bersama (React Context)
+├── app.json                    # Konfigurasi Expo
+└── package.json
 ```
 
 ---
 
-## 🧭 4. Rincian 5 Layar & Mekanisme `useLocalSearchParams`
+## 🚀 Cara Menjalankan
 
-### Alur Navigasi Antar-Halaman:
-1. **Layar 1 (`src/app/(tabs)/index.jsx`):** Sapaan pengguna, lokasi outlet *Dago Bar*, kolom pencarian, filter kategori horizontal, kartu menu *Barista Special (Oat Sea Salt Cortado)*, dan daftar 3 menu terpopuler.
-2. **Layar 2 (`src/app/(tabs)/menu.jsx`):** Katalog lengkap seluruh menu minuman dan pastry, dilengkapi pencarian *real-time* dan tombol *Kustomisasi →*.
-3. **Layar 3 (`src/app/details.jsx` — Stack Detail):**  
-   Menerima data produk dari Home/Menu menggunakan hook `useLocalSearchParams`:
-   ```javascript
-   // Pengiriman parameter dari index.jsx atau menu.jsx:
-   router.push({
-     pathname: "/details",
-     params: {
-       id: "c-01",
-       title: "Oat Sea Salt Cortado",
-       price: "42000",
-       notes: "Double ristretto, oat milk, sea salt caramel",
-       origin: "Single Origin Gayo Washed · Catatan rasa dark chocolate dan caramel.",
-       temp: "Iced",
-     },
-   });
+```bash
+# 1. Clone repositori
+git clone https://github.com/radtyadharma/UTS-ABP-Stoffee_240040015.git
+cd UTS-ABP-Stoffee_240040015
 
-   // Penerimaan parameter di details.jsx:
-   import { useLocalSearchParams, useRouter } from "expo-router";
+# 2. Instal dependensi
+npm install
 
-   const Details = () => {
-     const params = useLocalSearchParams();
-     const { title, price, origin, temp } = params;
-     // Digunakan untuk kalkulasi harga live kustomisasi susu nabati & extra shot
-     ...
-   };
-   ```
-4. **Layar 4 (`src/app/(tabs)/orders.jsx`):** Rincian item yang dipesan, sakelar metode santap (*Dine-in (Meja 04)* vs *Takeaway*), pengatur kuantitas `[-] 1 [+]`, kalkulasi tagihan (Subtotal, Pajak PB1 10%, Diskon Voucher), dan tombol *Place Order*.
-5. **Layar 5 (`src/app/(tabs)/profile.jsx`):** Profil pengguna *Raditya*, kartu stamp loyalitas digital *Stoffee Club* (5 dari 8 stamp terisi), riwayat transaksi, dan info gerai.
+# 3. Jalankan development server
+npx expo start
+```
+
+Lalu pindai **QR Code** yang muncul di terminal menggunakan aplikasi **Expo Go** di ponsel,
+atau jalankan di emulator dengan `npx expo start --android` / `--ios`.
+
+> Aplikasi juga telah lolos **20/20 pemeriksaan `npx expo-doctor`** tanpa error maupun warning.
 
 ---
 
-## 🚀 5. Cara Menjalankan Aplikasi
+## 📚 Sumber & Lisensi Aset
 
-1. **Clone Repositori:**
-   ```bash
-   git clone https://github.com/radtyadharma/stoffee.git
-   cd stoffee
-   ```
-2. **Instal Dependensi:**
-   ```bash
-   npm install
-   ```
-3. **Jalankan Aplikasi:**
-   ```bash
-   npx expo start
-   ```
-4. **Pindai QR Code** menggunakan aplikasi **Expo Go** pada ponsel pintar Anda.
+| Aset | Sumber | Lisensi |
+|---|---|---|
+| Ikon aplikasi | [Feather Icons via @expo/vector-icons](https://expo.github.io/vector-icons/) | MIT |
+| Palet warna | [Coolors](https://coolors.co/) | Bebas digunakan |
+| Gambar & screenshot | Dokumentasi sendiri | — |
+| Framework | [Expo](https://expo.dev) & [React Native](https://reactnative.dev) | MIT |
+
+Seluruh aset yang digunakan bersifat **open-source / royalty-free** dan aman untuk keperluan
+edukasi.
 
 ---
 
-## 🎤 6. Panduan Skenario Demo 2 Menit di Depan Dosen
+## 👤 Kontributor
 
-1. **Menit 0:00 - 0:30 (Tab Home):** Buka aplikasi, tunjukkan sapaan dan kartu Barista Special. Jelaskan bahwa aplikasi menggunakan **Expo Router** berbasis folder `src/app/`.
-2. **Menit 0:30 - 1:15 (Demo Stack Detail & `useLocalSearchParams`):** Klik salah satu kopi untuk masuk ke `src/app/details.jsx`. Tunjukkan data kopi diterima via `useLocalSearchParams()`. Ubah suhu ke *Hot*, ganti susu ke *Almond (+6k)*, dan centang *Extra Shot*. Tunjukkan harga di tombol bawah terkalkulasi secara langsung.
-3. **Menit 1:15 - 1:45 (Tab Pesanan):** Buka tab Pesanan, tunjukkan kalkulasi otomatis pajak dan diskon voucher, lalu klik tombol *Place Order*.
-4. **Menit 1:45 - 2:00 (Tab Profil):** Tunjukkan kartu stamp loyalitas digital (5/8 stamp) sebagai fitur retensi pengguna.
+| Nama | NIM | Peran |
+|---|---|---|
+| Putu Raditya Dharma Putra | 240040015 | Full-stack development, UI/UX design, dokumentasi |
+
+---
+
+<div align="center">
+
+**Stoffee** © 2026 — Dibuat untuk UTS Aplikasi Berbasis Platform
+
+</div>
