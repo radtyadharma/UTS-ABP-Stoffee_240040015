@@ -10,19 +10,26 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useCart } from "../context/CartContext";
 
 const Details = () => {
   const router = useRouter();
   const params = useLocalSearchParams();
+  const { addItem } = useCart();
 
   // Extract parameters passed from Home or Menu
   const {
+    id = "c-01",
     title = "Oat Sea Salt Cortado",
     category = "Signature",
     price = "42000",
     origin = "Single Origin Gayo Washed · Catatan rasa dark chocolate dan caramel.",
     temp = "Iced",
+    type = "drink",
   } = params;
+
+  // Pastry tidak pakai susu/kemanisan/extra shot — kustomisasi penuh hanya untuk minuman.
+  const isDrink = type !== "pastry";
 
   // Customization State
   const [selectedTemp, setSelectedTemp] = useState(
@@ -36,7 +43,7 @@ const Details = () => {
 
   // Live total calculation
   const basePrice = Number(price) || 42000;
-  const unitPrice = basePrice + milkExtra + (extraShot ? 8000 : 0);
+  const unitPrice = basePrice + (isDrink ? milkExtra + (extraShot ? 8000 : 0) : 0);
   const totalPrice = unitPrice * qty;
 
   const handleMilkSelect = (milk, extra) => {
@@ -45,9 +52,21 @@ const Details = () => {
   };
 
   const handleAddToCart = () => {
+    // Kirim item + kustomisasi ke CartContext (satu sumber kebenaran keranjang).
+    addItem(
+      { id, title, price: basePrice },
+      {
+        temp: selectedTemp,
+        milk: isDrink ? selectedMilk : "-",
+        sugar: isDrink ? selectedSugar : "-",
+        milkExtra: isDrink ? milkExtra : 0,
+        extraShot: isDrink && extraShot,
+        qty,
+      }
+    );
     Alert.alert(
       "Berhasil Ditambahkan! ☕",
-      `${qty}x ${title} (${selectedTemp}, ${selectedMilk}) berhasil dimasukkan ke daftar pesanan.`,
+      `${qty}x ${title} berhasil dimasukkan ke keranjang.\nTotal: Rp ${totalPrice.toLocaleString("id-ID")}`,
       [
         { text: "Lanjut Belanja", onPress: () => router.back() },
         { text: "Lihat Pesanan", onPress: () => router.navigate("/orders") },
@@ -96,71 +115,77 @@ const Details = () => {
         {/* End Temperature Container */}
 
         {/* Milk Base Container */}
-        <View style={styles.optionBox}>
-          <Text style={styles.optionTitle}>PILIHAN SUSU</Text>
-          <View style={styles.pillsRow}>
-            {[
-              { label: "Oat Milk (+0)", name: "Oat Milk", extra: 0 },
-              { label: "Fresh Milk", name: "Fresh Milk", extra: 0 },
-              { label: "Almond (+6k)", name: "Almond Milk", extra: 6000 },
-            ].map((m) => (
-              <Pressable
-                key={m.name}
-                style={[styles.pill, selectedMilk === m.name && styles.pillActive]}
-                onPress={() => handleMilkSelect(m.name, m.extra)}
-              >
-                <Text
-                  style={[
-                    styles.pillText,
-                    selectedMilk === m.name && styles.pillTextActive,
-                  ]}
+        {isDrink && (
+          <View style={styles.optionBox}>
+            <Text style={styles.optionTitle}>PILIHAN SUSU</Text>
+            <View style={styles.pillsRow}>
+              {[
+                { label: "Oat Milk (+0)", name: "Oat Milk", extra: 0 },
+                { label: "Fresh Milk", name: "Fresh Milk", extra: 0 },
+                { label: "Almond (+6k)", name: "Almond Milk", extra: 6000 },
+              ].map((m) => (
+                <Pressable
+                  key={m.name}
+                  style={[styles.pill, selectedMilk === m.name && styles.pillActive]}
+                  onPress={() => handleMilkSelect(m.name, m.extra)}
                 >
-                  {m.label}
-                </Text>
-              </Pressable>
-            ))}
+                  <Text
+                    style={[
+                      styles.pillText,
+                      selectedMilk === m.name && styles.pillTextActive,
+                    ]}
+                  >
+                    {m.label}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
           </View>
-        </View>
+        )}
         {/* End Milk Base Container */}
 
         {/* Sweetness Container */}
-        <View style={styles.optionBox}>
-          <Text style={styles.optionTitle}>TINGKAT KEMANISAN</Text>
-          <View style={styles.pillsRow}>
-            {["50% (Sedang)", "100% (Normal)", "0% (Tanpa Gula)"].map((s) => (
-              <Pressable
-                key={s}
-                style={[styles.pill, selectedSugar === s && styles.pillActive]}
-                onPress={() => setSelectedSugar(s)}
-              >
-                <Text
-                  style={[styles.pillText, selectedSugar === s && styles.pillTextActive]}
+        {isDrink && (
+          <View style={styles.optionBox}>
+            <Text style={styles.optionTitle}>TINGKAT KEMANISAN</Text>
+            <View style={styles.pillsRow}>
+              {["50% (Sedang)", "100% (Normal)", "0% (Tanpa Gula)"].map((s) => (
+                <Pressable
+                  key={s}
+                  style={[styles.pill, selectedSugar === s && styles.pillActive]}
+                  onPress={() => setSelectedSugar(s)}
                 >
-                  {s}
-                </Text>
-              </Pressable>
-            ))}
+                  <Text
+                    style={[styles.pillText, selectedSugar === s && styles.pillTextActive]}
+                  >
+                    {s}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
           </View>
-        </View>
+        )}
         {/* End Sweetness Container */}
 
         {/* Extra Shot Switch Container */}
-        <View style={[styles.optionBox, styles.switchRow]}>
-          <View>
-            <Text style={{ fontSize: 13, fontWeight: "700", color: "#2D232E" }}>
-              Extra Double Ristretto Shot
-            </Text>
-            <Text style={{ fontSize: 11, color: "#474448", marginTop: 2 }}>
-              Kopi lebih pekat & bold (+Rp 8.000)
-            </Text>
+        {isDrink && (
+          <View style={[styles.optionBox, styles.switchRow]}>
+            <View>
+              <Text style={{ fontSize: 13, fontWeight: "700", color: "#2D232E" }}>
+                Extra Double Ristretto Shot
+              </Text>
+              <Text style={{ fontSize: 11, color: "#474448", marginTop: 2 }}>
+                Kopi lebih pekat & bold (+Rp 8.000)
+              </Text>
+            </View>
+            <Switch
+              value={extraShot}
+              onValueChange={setExtraShot}
+              trackColor={{ false: "#D9D5CC", true: "#2D232E" }}
+              thumbColor={extraShot ? "#E0DDCF" : "#FFFFFF"}
+            />
           </View>
-          <Switch
-            value={extraShot}
-            onValueChange={setExtraShot}
-            trackColor={{ false: "#D9D5CC", true: "#2D232E" }}
-            thumbColor={extraShot ? "#E0DDCF" : "#FFFFFF"}
-          />
-        </View>
+        )}
         {/* End Extra Shot Switch Container */}
       </ScrollView>
 

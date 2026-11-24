@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Alert,
   Pressable,
@@ -8,42 +8,21 @@ import {
   View,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { useCart } from "../context/CartContext";
 
 const Orders = () => {
+  const router = useRouter();
+  // Keranjang hidup di CartContext — details dan orders memakai data yang sama.
+  const { items, updateQty, clearCart } = useCart();
   const [orderType, setOrderType] = useState("dinein");
-  const [items, setItems] = useState([
-    {
-      id: "1",
-      title: "Oat Sea Salt Cortado",
-      desc: "Iced · Oat Milk · 50% Sugar",
-      price: 42000,
-      qty: 1,
-    },
-    {
-      id: "2",
-      title: "Artisan Almond Croissant",
-      desc: "Warm Toasted",
-      price: 32000,
-      qty: 1,
-    },
-  ]);
 
-  const updateQty = (id, delta) => {
-    setItems((prev) =>
-      prev
-        .map((item) => {
-          if (item.id === id) {
-            const newQty = item.qty + delta;
-            return newQty > 0 ? { ...item, qty: newQty } : null;
-          }
-          return item;
-        })
-        .filter(Boolean)
-    );
-  };
-
-  const subtotal = items.reduce((acc, curr) => acc + curr.price * curr.qty, 0);
+  const subtotal = useMemo(
+    () => items.reduce((acc, curr) => acc + curr.price * curr.qty, 0),
+    [items]
+  );
   const tax = Math.round(subtotal * 0.1);
+  // Voucher flat Rp 10.000 untuk pembelian minimal Rp 30.000.
   const discount = subtotal >= 30000 ? 10000 : 0;
   const grandTotal = Math.max(0, subtotal + tax - discount);
 
@@ -55,7 +34,15 @@ const Orders = () => {
     Alert.alert(
       "Pesanan Diterima! ☕",
       `Nomor Antrean: #ST-${Math.floor(1000 + Math.random() * 9000)}\nTotal: Rp ${grandTotal.toLocaleString("id-ID")}\nEstimasi waktu: 6-8 menit.`,
-      [{ text: "OK", onPress: () => setItems([]) }]
+      [
+        {
+          text: "OK",
+          onPress: () => {
+            clearCart();
+            router.navigate("/(tabs)/menu");
+          },
+        },
+      ]
     );
   };
 
@@ -96,7 +83,7 @@ const Orders = () => {
           </View>
         ) : (
           items.map((item) => (
-            <View key={item.id} style={styles.cartCard}>
+            <View key={item.cartId} style={styles.cartCard}>
               <View style={{ flex: 1 }}>
                 <Text style={styles.cartTitle}>{item.title}</Text>
                 <Text style={styles.cartDesc}>{item.desc}</Text>
@@ -107,11 +94,11 @@ const Orders = () => {
 
               {/* Stepper */}
               <View style={styles.stepper}>
-                <Pressable style={styles.stepBtn} onPress={() => updateQty(item.id, -1)}>
+                <Pressable style={styles.stepBtn} onPress={() => updateQty(item.cartId, -1)}>
                   <Text style={styles.stepText}>-</Text>
                 </Pressable>
                 <Text style={styles.qtyText}>{item.qty}</Text>
-                <Pressable style={styles.stepBtn} onPress={() => updateQty(item.id, 1)}>
+                <Pressable style={styles.stepBtn} onPress={() => updateQty(item.cartId, 1)}>
                   <Text style={styles.stepText}>+</Text>
                 </Pressable>
               </View>
@@ -138,7 +125,7 @@ const Orders = () => {
 
           <View style={styles.billRow}>
             <Text style={[styles.billLabel, { color: "#2E7D32" }]}>
-              Voucher Diskon (STOFFEE10)
+              Voucher Diskon (min. belanja Rp 30.000)
             </Text>
             <Text style={[styles.billValue, { color: "#2E7D32" }]}>
               -Rp {discount.toLocaleString("id-ID")}

@@ -42,8 +42,9 @@ const Index = () => {
       category: "Pastry",
       price: "32000",
       notes: "French viennoiserie · Toasted almond cream",
-      origin: "Pastry mentega Prancis dengan isian krim almond panggang renyah.",
+      origin: "Pastry mentega Prancis dengan isian krim almond panggang.",
       temp: "Hot",
+      type: "pastry",
     },
   ];
 

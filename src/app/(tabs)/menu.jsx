@@ -45,6 +45,7 @@ const Menu = () => {
       notes: "French viennoiserie · Toasted almond cream",
       origin: "Pastry mentega Prancis dengan isian krim almond panggang.",
       temp: "Hot",
+      type: "pastry",
     },
     {
       id: "c-04",
