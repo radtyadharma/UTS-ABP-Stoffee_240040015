@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../../context/CartContext";
 
 const Orders = () => {
   const router = useRouter();
