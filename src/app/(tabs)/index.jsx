@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
@@ -13,9 +12,6 @@ import { useRouter } from "expo-router";
 
 const Index = () => {
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState("All");
-
-  const categories = ["All", "Signature", "Espresso", "Cold Brew", "Pastry"];
 
   const popularCoffees = [
     {
@@ -64,48 +60,27 @@ const Index = () => {
         </View>
         {/* End User Container */}
 
-        {/* Search Container */}
-        <View style={styles.searchContainer}>
-          <TextInput
-            placeholder="Cari artisan coffee, beans, bakery..."
-            placeholderTextColor="#8C8885"
-            style={styles.searchInput}
-          />
-          <Pressable style={styles.searchButton} onPress={() => router.navigate("/menu")}>
-            <Feather name="search" size={18} color="#FFFFFF" />
+        {/* Promo Banner Container — pengganti search bar & filter (fokus home: promosi, bukan pencarian) */}
+        <View style={styles.promoBanner}>
+          <View style={styles.promoTextWrap}>
+            <Text style={styles.promoTag}>PROMO HARI INI</Text>
+            <Text style={styles.promoTitle}>Beli 2 Gratis 1 Pastry</Text>
+            <Text style={styles.promoDesc}>
+              Berlaku setiap pembelian 2 minuman signature sebelum pukul 11.00.
+            </Text>
+          </View>
+          <Pressable
+            style={({ pressed }) => [
+              styles.promoButton,
+              pressed && { opacity: 0.85 },
+            ]}
+            onPress={() => router.navigate("/menu")}
+          >
+            <Text style={styles.promoButtonText}>Lihat Menu</Text>
+            <Feather name="arrow-right" size={13} color="#2D232E" />
           </Pressable>
         </View>
-        {/* End Search Container */}
-
-        {/* Category Container */}
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.categoryScrollView}
-          contentContainerStyle={styles.categoryContainer}
-        >
-          {categories.map((cat) => (
-            <Pressable
-              key={cat}
-              style={({ pressed }) => [
-                styles.categoryChip,
-                selectedCategory === cat && styles.categoryChipActive,
-                pressed && { opacity: 0.8 },
-              ]}
-              onPress={() => setSelectedCategory(cat)}
-            >
-              <Text
-                style={[
-                  styles.categoryText,
-                  selectedCategory === cat && styles.categoryTextActive,
-                ]}
-              >
-                {cat}
-              </Text>
-            </Pressable>
-          ))}
-        </ScrollView>
-        {/* End Category Container */}
+        {/* End Promo Banner Container */}
 
         {/* Hero Card Container */}
         <View style={styles.heroCard}>
@@ -209,65 +184,47 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#2D232E",
   },
-  searchContainer: {
+  promoBanner: {
+    backgroundColor: "#2D232E",
+    borderRadius: 18,
+    padding: 18,
     flexDirection: "row",
-    gap: 8,
+    alignItems: "center",
+    gap: 12,
   },
-  searchInput: {
+  promoTextWrap: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
-    borderWidth: 1,
-    borderColor: "rgba(45, 35, 46, 0.12)",
-    borderRadius: 12,
+    gap: 4,
+  },
+  promoTag: {
+    fontSize: 9,
+    fontWeight: "800",
+    color: "#E0DDCF",
+    letterSpacing: 1,
+  },
+  promoTitle: {
+    fontSize: 16,
+    fontWeight: "800",
+    color: "#FFFFFF",
+  },
+  promoDesc: {
+    fontSize: 11,
+    color: "rgba(255,255,255,0.7)",
+    lineHeight: 15,
+  },
+  promoButton: {
+    backgroundColor: "#E0DDCF",
+    borderRadius: 20,
     paddingHorizontal: 14,
-    fontSize: 13,
-    color: "#2D232E",
-  },
-  searchButton: {
-    backgroundColor: "#2D232E",
-    borderRadius: 12,
-    width: 46,
-    height: 46,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  categoryScrollView: {
-    height: 48,
-    flexGrow: 0,
-    flexShrink: 0,
-  },
-  categoryContainer: {
+    paddingVertical: 8,
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
-    paddingVertical: 4,
-    paddingHorizontal: 2,
+    gap: 5,
   },
-  categoryChip: {
-    height: 38,
-    minWidth: 54,
-    paddingHorizontal: 16,
-    borderRadius: 19,
-    backgroundColor: "#FFFFFF",
-    borderWidth: 1,
-    borderColor: "rgba(45, 35, 46, 0.1)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  categoryChipActive: {
-    backgroundColor: "#2D232E",
-    borderColor: "#2D232E",
-  },
-  categoryText: {
-    fontSize: 12.5,
-    fontWeight: "600",
-    color: "#474448",
-    textAlign: "center",
-    includeFontPadding: false,
-  },
-  categoryTextActive: {
-    color: "#FFFFFF",
-    fontWeight: "700",
+  promoButtonText: {
+    fontSize: 11,
+    fontWeight: "800",
+    color: "#2D232E",
   },
   heroCard: {
     backgroundColor: "#FFFFFF",

@@ -33,7 +33,8 @@ antre di kasir.
 
 | Fitur | Deskripsi |
 |---|---|
-| 🔍 **Pencarian & Filter** | Cari menu secara *real-time* dan filter berdasarkan kategori (Signature, Espresso, Cold Brew, Pastry) |
+| 🔍 **Pencarian & Filter** | Pencarian menu *real-time* dan filter kategori (Signature, Espresso, Cold Brew, Pastry) tersedia penuh di tab **Menu** |
+| 🏷️ **Promosi di Home** | Banner promo harian di halaman Home mengarahkan pengguna langsung ke katalog menu |
 | 🧋 **Kustomisasi Minuman** | Pilih temperatur, jenis susu (Oat/Fresh/Almond), tingkat kemanisan, dan *extra shot* dengan perhitungan harga *live* |
 | 🛒 **Keranjang Terhubung** | Hasil kustomisasi tersimpan ke keranjang melalui **CartContext** (state bersama antar layar) |
 | 🧾 **Kalkulasi Tagihan** | Subtotal, Pajak Restoran PB1 10%, voucher diskon, dan total pembayaran dihitung otomatis |
@@ -109,7 +110,7 @@ UTS-ABP-Stoffee_240040015/
 │   │   ├── details.jsx         # Detail Menu + kustomisasi minuman
 │   │   └── (tabs)/
 │   │       ├── _layout.jsx     # Bottom Tab Navigator
-│   │       ├── index.jsx       # Home
+│   │       ├── index.jsx       # Home — sapaan, banner promo, barista special, menu terpopuler
 │   │       ├── menu.jsx        # Menu & Katalog
 │   │       ├── orders.jsx      # Keranjang & Checkout
 │   │       └── profile.jsx     # Profil & Loyalitas
