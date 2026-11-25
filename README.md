@@ -46,6 +46,27 @@ antre di kasir.
 
 ---
 
+## 🎨 Referensi UI & Desain
+
+Desain antarmuka Stoffee mengambil inspirasi dari referensi *coffee ordering app* dengan
+palet *warm minimal* (dominan cokelat espresso & krem oat milk). Referensi yang dipakai:
+
+| Referensi | Sumber | Elemen yang Diadopsi |
+|---|---|---|
+| [Coffee Ordering App — Mobile UI/UX Design](https://dribbble.com/shots/27459673-Coffee-Ordering-App-Mobile-UI-UX-Design) (Saumya Manglani) | Dribbble | Palet *coffee-inspired* (cream `#F4ECE4`, espresso `#1C0C05`, oat `#DBC4AF`) dan alur kustomisasi minuman di Product Detail |
+| [Coffee App UI — Minimal & Elegant](https://dribbble.com/shots/25953025-Coffee-App-UI-Minimal-Elegant) (Urmit Patel) | Dribbble | Layout Home dengan kartu *special offer* + daftar kategori + daftar produk |
+| [Coffee App](https://www.figma.com/community/file/1647936291874241643/coffee-app) (Figma Community, CC BY 4.0) | Figma Community | Struktur *file-based* screens Home → Menu → Kustomisasi; lisensi CC BY 4.0 |
+
+**Alasan pemilihan:** ketiga referensi memakai palet *earthy* hangat yang cocok dengan tema
+kopi artisan, tipografi bersih dengan hierarki tegas, serta alur *browse → customize → order*
+yang ringkas — selaras dengan target pengguna Stoffee (pelanggan kafe urban yang ingin
+pemesanan cepat) dan cakupan navigasi UTS (Stack + Bottom Tab + Modal).
+
+> Catatan: tampilan aplikasi sepenuhnya dikembangkan mandiri; referensi hanya dipakai sebagai
+> inspirasi palet & struktur navigasi, bukan salinan penuh.
+
+---
+
 ## 🖼️ Tampilan Aplikasi
 
 <div align="center">
@@ -53,8 +74,12 @@ antre di kasir.
 | Home | Detail & Kustomisasi | Katalog Menu |
 |:---:|:---:|:---:|
 | ![Home](assets/screenshots/coffee_01_home.png) | ![Detail](assets/screenshots/coffee_02_product_detail.png) | ![Menu](assets/screenshots/coffee_03_menu_catalog.png) |
-| **Promo Spesial** | **Pesanan** | **Profil & Loyalitas** |
+| **Promo Spesial (Modal)** | **Pesanan** | **Profil & Loyalitas** |
 | ![Promo](assets/screenshots/coffee_promo_modal.png) | ![Orders](assets/screenshots/coffee_04_orders_cart.png) | ![Profile](assets/screenshots/coffee_05_profile_rewards.png) |
+
+> Tangkapan layar diambil dari aplikasi yang berjalan di **Expo Go** pada perangkat fisik.
+> Ikon gerigi (⚙) di pojok kanan bawah adalah *developer menu* bawaan Expo Go, bukan
+> bagian dari aplikasi.
 
 </div>
 
@@ -161,6 +186,7 @@ atau jalankan di emulator dengan `npx expo start --android` / `--ios`.
 | Ikon antarmuka | [Lucide Icons — lucide.dev](https://lucide.dev/) via `lucide-react-native` | ISC |
 | Ikon profil pengguna | [SVG Repo — "User" vector #530585](https://www.svgrepo.com/svg/530585/user) | CC0 / SVG Repo License (attribution appreciated) |
 | Palet warna | [Coolors](https://coolors.co/) | Bebas digunakan |
+| Referensi UI & desain | Lihat bagian [Referensi UI & Desain](#-referensi-ui--desain) (Dribbble & Figma Community) | CC BY 4.0 / inspirasi, bukan salinan |
 | Gambar & screenshot | Dokumentasi sendiri | — |
 | Framework | [Expo](https://expo.dev) & [React Native](https://reactnative.dev) | MIT |
 
