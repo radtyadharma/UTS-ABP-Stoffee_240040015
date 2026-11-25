@@ -42,3 +42,4 @@ yarn-error.*
 
 # internal tool
 .claude/
+AGENTS.md

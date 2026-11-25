@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Alert,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -10,16 +9,13 @@ import {
 } from "react-native";
 import { Coffee } from "lucide-react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useCart } from "../context/CartContext";
 
 const Details = () => {
   const router = useRouter();
   const params = useLocalSearchParams();
-  const { addItem } = useCart();
 
-  // Extract parameters passed from Home or Menu
+  // Data produk dikirim dari Home/Menu lewat router params.
   const {
-    id = "c-01",
     title = "Oat Sea Salt Cortado",
     category = "Signature",
     price = "42000",
@@ -28,10 +24,10 @@ const Details = () => {
     type = "drink",
   } = params;
 
-  // Pastry tidak pakai susu/kemanisan/extra shot — kustomisasi penuh hanya untuk minuman.
+  // Pastry tidak punya kustomisasi susu/kemanisan/extra shot.
   const isDrink = type !== "pastry";
 
-  // Customization State
+  // State kustomisasi minuman.
   const [selectedTemp, setSelectedTemp] = useState(
     temp === "Hot" ? "Hot (Hangat)" : "Iced (Dingin)"
   );
@@ -41,43 +37,21 @@ const Details = () => {
   const [extraShot, setExtraShot] = useState(false);
   const [qty, setQty] = useState(1);
 
-  // Live total calculation
+  // Harga dasar + tambahan susu/shot, dikali jumlah.
   const basePrice = Number(price) || 42000;
   const unitPrice = basePrice + (isDrink ? milkExtra + (extraShot ? 8000 : 0) : 0);
   const totalPrice = unitPrice * qty;
 
+  // Pilih susu sekaligus simpan biaya tambahannya.
   const handleMilkSelect = (milk, extra) => {
     setSelectedMilk(milk);
     setMilkExtra(extra);
   };
 
-  const handleAddToCart = () => {
-    // Kirim item + kustomisasi ke CartContext (satu sumber kebenaran keranjang).
-    addItem(
-      { id, title, price: basePrice },
-      {
-        temp: selectedTemp,
-        milk: isDrink ? selectedMilk : "-",
-        sugar: isDrink ? selectedSugar : "-",
-        milkExtra: isDrink ? milkExtra : 0,
-        extraShot: isDrink && extraShot,
-        qty,
-      }
-    );
-    Alert.alert(
-      "Berhasil Ditambahkan! ☕",
-      `${qty}x ${title} berhasil dimasukkan ke keranjang.\nTotal: Rp ${totalPrice.toLocaleString("id-ID")}`,
-      [
-        { text: "Lanjut Belanja", onPress: () => router.back() },
-        { text: "Lihat Pesanan", onPress: () => router.navigate("/orders") },
-      ]
-    );
-  };
-
   return (
     <View style={{ flex: 1, backgroundColor: "#F1F0EA" }}>
       <ScrollView contentContainerStyle={styles.container}>
-        {/* Product Showcase Container */}
+        {/* Kartu tampilan produk */}
         <View style={styles.showcaseCard}>
           <View style={styles.iconBox}>
             <Coffee size={40} color="#2D232E" />
@@ -91,16 +65,19 @@ const Details = () => {
             Rp {Number(price).toLocaleString("id-ID")}
           </Text>
         </View>
-        {/* End Product Showcase Container */}
 
-        {/* Temperature Container */}
+        {/* Pilihan temperatur */}
         <View style={styles.optionBox}>
           <Text style={styles.optionTitle}>TEMPERATUR PENYAJIAN</Text>
           <View style={styles.pillsRow}>
             {["Iced (Dingin)", "Hot (Hangat)"].map((t) => (
               <Pressable
                 key={t}
-                style={[styles.pill, selectedTemp === t && styles.pillActive]}
+                style={({ pressed }) => [
+                  styles.pill,
+                  selectedTemp === t && styles.pillActive,
+                  pressed && styles.pillPressed,
+                ]}
                 onPress={() => setSelectedTemp(t)}
               >
                 <Text
@@ -112,9 +89,8 @@ const Details = () => {
             ))}
           </View>
         </View>
-        {/* End Temperature Container */}
 
-        {/* Milk Base Container */}
+        {/* Pilihan susu (hanya minuman) */}
         {isDrink && (
           <View style={styles.optionBox}>
             <Text style={styles.optionTitle}>PILIHAN SUSU</Text>
@@ -126,7 +102,11 @@ const Details = () => {
               ].map((m) => (
                 <Pressable
                   key={m.name}
-                  style={[styles.pill, selectedMilk === m.name && styles.pillActive]}
+                  style={({ pressed }) => [
+                    styles.pill,
+                    selectedMilk === m.name && styles.pillActive,
+                    pressed && styles.pillPressed,
+                  ]}
                   onPress={() => handleMilkSelect(m.name, m.extra)}
                 >
                   <Text
@@ -142,9 +122,8 @@ const Details = () => {
             </View>
           </View>
         )}
-        {/* End Milk Base Container */}
 
-        {/* Sweetness Container */}
+        {/* Tingkat kemanisan (hanya minuman) */}
         {isDrink && (
           <View style={styles.optionBox}>
             <Text style={styles.optionTitle}>TINGKAT KEMANISAN</Text>
@@ -152,7 +131,11 @@ const Details = () => {
               {["50% (Sedang)", "100% (Normal)", "0% (Tanpa Gula)"].map((s) => (
                 <Pressable
                   key={s}
-                  style={[styles.pill, selectedSugar === s && styles.pillActive]}
+                  style={({ pressed }) => [
+                    styles.pill,
+                    selectedSugar === s && styles.pillActive,
+                    pressed && styles.pillPressed,
+                  ]}
                   onPress={() => setSelectedSugar(s)}
                 >
                   <Text
@@ -165,9 +148,8 @@ const Details = () => {
             </View>
           </View>
         )}
-        {/* End Sweetness Container */}
 
-        {/* Extra Shot Switch Container */}
+        {/* Extra shot (hanya minuman) */}
         {isDrink && (
           <View style={[styles.optionBox, styles.switchRow]}>
             <View>
@@ -186,32 +168,36 @@ const Details = () => {
             />
           </View>
         )}
-        {/* End Extra Shot Switch Container */}
       </ScrollView>
 
-      {/* Sticky Bottom Bar Container */}
+      {/* Sticky bottom bar: qty + total live; tombol kembali ke halaman Menu */}
       <View style={styles.bottomBar}>
         <View style={styles.stepper}>
           <Pressable
-            style={styles.stepBtn}
+            style={({ pressed }) => [styles.stepBtn, pressed && styles.stepBtnPressed]}
             onPress={() => setQty((q) => Math.max(1, q - 1))}
           >
             <Text style={styles.stepText}>-</Text>
           </Pressable>
           <Text style={styles.qtyText}>{qty}</Text>
-          <Pressable style={styles.stepBtn} onPress={() => setQty((q) => q + 1)}>
+          <Pressable
+            style={({ pressed }) => [styles.stepBtn, pressed && styles.stepBtnPressed]}
+            onPress={() => setQty((q) => q + 1)}
+          >
             <Text style={styles.stepText}>+</Text>
           </Pressable>
         </View>
 
-        <Pressable style={styles.addButton} onPress={handleAddToCart}>
+        <Pressable
+          style={({ pressed }) => [styles.addButton, pressed && styles.addButtonPressed]}
+          onPress={() => router.back()}
+        >
           <Text style={styles.addText}>Tambah Pesanan</Text>
           <Text style={styles.addPrice}>
             Rp {totalPrice.toLocaleString("id-ID")}
           </Text>
         </Pressable>
       </View>
-      {/* End Sticky Bottom Bar Container */}
     </View>
   );
 };
@@ -296,6 +282,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(45, 35, 46, 0.08)",
   },
+  pillPressed: {
+    opacity: 0.75,
+  },
   pillActive: {
     backgroundColor: "#2D232E",
     borderColor: "#2D232E",
@@ -342,6 +331,10 @@ const styles = StyleSheet.create({
     height: 32,
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 8,
+  },
+  stepBtnPressed: {
+    opacity: 0.6,
   },
   stepText: {
     fontSize: 16,
@@ -363,6 +356,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  addButtonPressed: {
+    opacity: 0.85,
   },
   addText: {
     color: "#FFFFFF",

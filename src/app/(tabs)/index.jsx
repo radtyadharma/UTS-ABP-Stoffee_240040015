@@ -74,9 +74,9 @@ const Index = () => {
               styles.promoButton,
               pressed && { opacity: 0.85 },
             ]}
-            onPress={() => router.navigate("/menu")}
+            onPress={() => router.push("/promo")}
           >
-            <Text style={styles.promoButtonText}>Lihat Menu</Text>
+            <Text style={styles.promoButtonText}>Lihat Promo</Text>
             <ArrowRight size={13} color="#2D232E" />
           </Pressable>
         </View>
