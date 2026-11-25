@@ -148,6 +148,7 @@ atau jalankan di emulator dengan `npx expo start --android` / `--ios`.
 | Aset | Sumber | Lisensi |
 |---|---|---|
 | Ikon aplikasi | [Feather Icons via @expo/vector-icons](https://expo.github.io/vector-icons/) | MIT |
+| Ikon profil pengguna | [Lucide Icons — lucide.dev](https://lucide.dev/) | ISC |
 | Ikon profil pengguna | [SVG Repo — "User" vector #530585](https://www.svgrepo.com/svg/530585/user) | CC0 / SVG Repo License (attribution appreciated) |
 | Palet warna | [Coolors](https://coolors.co/) | Bebas digunakan |
 | Gambar & screenshot | Dokumentasi sendiri | — |
