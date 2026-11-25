@@ -34,7 +34,7 @@ antre di kasir.
 | Fitur | Deskripsi |
 |---|---|
 | 🔍 **Pencarian & Filter** | Pencarian menu *real-time* dan filter kategori (Signature, Espresso, Cold Brew, Pastry) tersedia penuh di tab **Menu** |
-| 🏷️ **Promosi di Home** | Banner promo harian di halaman Home mengarahkan pengguna langsung ke katalog menu |
+| 🏷️ **Promosi di Home** | Banner promo harian di halaman Home membuka halaman promo sebagai *modal* |
 | ☕ **Kustomisasi Minuman** | Pilih temperatur, jenis susu (Oat/Fresh/Almond), tingkat kemanisan, dan *extra shot* dengan perhitungan harga *live* (harga satuan × jumlah) |
 | 🛒 **Tombol Tambah Pesanan** | Tombol aksi di halaman detail menampilkan total harga dinamis dan mengembalikan pengguna ke halaman Menu setelah ditekan |
 | ☕ **Kartu Loyalitas Digital** | Kartu *stamp* 8 kotak dengan progress pengumpulan poin |
