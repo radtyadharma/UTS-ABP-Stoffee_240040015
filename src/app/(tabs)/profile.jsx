@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { Clock, CreditCard, MapPin, Info, ChevronRight, Coffee } from "lucide-react-native";
+import { Clock, CreditCard, MapPin, Info, ChevronRight, Coffee, Gift } from "lucide-react-native";
 
 const Profile = () => {
   const stamps = [true, true, true, true, true, false, false, false];
@@ -40,7 +40,7 @@ const Profile = () => {
               {filled ? (
                 <Coffee size={16} color="#2D232E" />
               ) : idx === 7 ? (
-                <Text style={{ fontSize: 14 }}>🎁</Text>
+                <Gift size={14} color="#534B52" />
               ) : (
                 <Text style={styles.stampNum}>{idx + 1}</Text>
               )}
