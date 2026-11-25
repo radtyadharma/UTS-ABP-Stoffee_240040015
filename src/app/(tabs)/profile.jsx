@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { Clock, CreditCard, MapPin, Info, ChevronRight, Coffee } from "lucide-react-native";
 
 const Profile = () => {
   const stamps = [true, true, true, true, true, false, false, false];
@@ -38,7 +38,7 @@ const Profile = () => {
               style={[styles.stampSlot, filled && styles.stampSlotFilled]}
             >
               {filled ? (
-                <Feather name="coffee" size={16} color="#2D232E" />
+                <Coffee size={16} color="#2D232E" />
               ) : idx === 7 ? (
                 <Text style={{ fontSize: 14 }}>🎁</Text>
               ) : (
@@ -56,45 +56,45 @@ const Profile = () => {
       {/* Menu Options Container */}
       <View style={styles.menuContainer}>
         <Pressable style={styles.menuRow}>
-          <Feather name="clock" size={18} color="#2D232E" />
+          <Clock size={18} color="#2D232E" />
           <View style={{ flex: 1 }}>
             <Text style={styles.menuTitle}>Riwayat Pesanan</Text>
             <Text style={styles.menuSub}>1x Cortado, 1x Croissant · Selesai</Text>
           </View>
-          <Feather name="chevron-right" size={16} color="#474448" />
+          <ChevronRight size={16} color="#474448" />
         </Pressable>
 
         <View style={styles.separator} />
 
         <Pressable style={styles.menuRow}>
-          <Feather name="credit-card" size={18} color="#2D232E" />
+          <CreditCard size={18} color="#2D232E" />
           <View style={{ flex: 1 }}>
             <Text style={styles.menuTitle}>Metode Pembayaran</Text>
             <Text style={styles.menuSub}>QRIS Instant, GoPay, Kartu Debit</Text>
           </View>
-          <Feather name="chevron-right" size={16} color="#474448" />
+          <ChevronRight size={16} color="#474448" />
         </Pressable>
 
         <View style={styles.separator} />
 
         <Pressable style={styles.menuRow}>
-          <Feather name="map-pin" size={18} color="#2D232E" />
+          <MapPin size={18} color="#2D232E" />
           <View style={{ flex: 1 }}>
             <Text style={styles.menuTitle}>Gerai Dago Bar</Text>
             <Text style={styles.menuSub}>Jl. Ir. H. Juanda No. 128, Bandung</Text>
           </View>
-          <Feather name="chevron-right" size={16} color="#474448" />
+          <ChevronRight size={16} color="#474448" />
         </Pressable>
 
         <View style={styles.separator} />
 
         <Pressable style={styles.menuRow}>
-          <Feather name="info" size={18} color="#2D232E" />
+          <Info size={18} color="#2D232E" />
           <View style={{ flex: 1 }}>
             <Text style={styles.menuTitle}>Tentang Stoffee</Text>
             <Text style={styles.menuSub}>Versi 1.0.0 · UTS ABP Proyek</Text>
           </View>
-          <Feather name="chevron-right" size={16} color="#474448" />
+          <ChevronRight size={16} color="#474448" />
         </Pressable>
       </View>
       {/* End Menu Options Container */}

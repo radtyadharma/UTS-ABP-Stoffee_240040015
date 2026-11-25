@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { ShoppingBag } from "lucide-react-native";
 import { useRouter } from "expo-router";
 import { useCart } from "../../context/CartContext";
 
@@ -73,7 +73,7 @@ const Orders = () => {
       <View style={{ gap: 10 }}>
         {items.length === 0 ? (
           <View style={styles.emptyContainer}>
-            <Feather name="shopping-bag" size={40} color="#534B52" />
+            <ShoppingBag size={40} color="#534B52" />
             <Text style={{ fontSize: 15, fontWeight: "700", color: "#2D232E", marginTop: 8 }}>
               Keranjang Kosong
             </Text>

@@ -35,9 +35,9 @@ antre di kasir.
 |---|---|
 | 🔍 **Pencarian & Filter** | Pencarian menu *real-time* dan filter kategori (Signature, Espresso, Cold Brew, Pastry) tersedia penuh di tab **Menu** |
 | 🏷️ **Promosi di Home** | Banner promo harian di halaman Home mengarahkan pengguna langsung ke katalog menu |
-| 🧋 **Kustomisasi Minuman** | Pilih temperatur, jenis susu (Oat/Fresh/Almond), tingkat kemanisan, dan *extra shot* dengan perhitungan harga *live* |
-| 🛒 **Keranjang Terhubung** | Hasil kustomisasi tersimpan ke keranjang melalui **CartContext** (state bersama antar layar) |
-| 🧾 **Kalkulasi Tagihan** | Subtotal, Pajak Restoran PB1 10%, voucher diskon, dan total pembayaran dihitung otomatis |
+3. **Kustomisasi Minuman** | Pilih temperatur, jenis susu (Oat/Fresh/Almond), tingkat kemanisan, dan *extra shot* dengan perhitungan harga *live*; hasil kustomisasi langsung tersimpan ke keranjang melalui **CartContext** |
+| 🛒 **Keranjang Belanja** | Menampilkan daftar item yang dipesan, pengatur jumlah (`+`/`-`), menghitung subtotal, Pajak Restoran PB1 (10%), voucher diskon, dan total pembayaran; dapat dijumlahkan ulang dan dikosongkan setelah checkout |
+| 🧾 **Checkout & Invoice** | Tombol checkout yang menyimpan rangkaian tagihan dan menampilkan nomor antrean; setelah selesai keranjang otomatis dikosongkan |
 | ☕ **Kartu Loyalitas Digital** | Kartu *stamp* 8 kotak dengan progress pengumpulan poin |
 | 📲 **Deep Linking** | Skema URL `stoffee://` untuk navigasi eksternal |
 

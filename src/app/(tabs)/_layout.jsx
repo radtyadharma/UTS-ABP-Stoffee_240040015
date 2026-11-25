@@ -1,4 +1,4 @@
-import { Feather } from "@expo/vector-icons";
+import { Home, Coffee, ShoppingBag, User } from "lucide-react-native";
 import { Tabs } from "expo-router";
 
 const TabsLayout = () => {
@@ -27,7 +27,7 @@ const TabsLayout = () => {
           title: "Home",
           headerShown: false,
           tabBarIcon: ({ color }) => (
-            <Feather name="home" size={22} color={color} />
+            <Home size={22} color={color} />
           ),
         }}
       />
@@ -38,7 +38,7 @@ const TabsLayout = () => {
           title: "Menu",
           headerTitle: "Menu & Katalog",
           tabBarIcon: ({ color }) => (
-            <Feather name="coffee" size={22} color={color} />
+            <Coffee size={22} color={color} />
           ),
         }}
       />
@@ -49,7 +49,7 @@ const TabsLayout = () => {
           title: "Pesanan",
           headerTitle: "Pesanan Saya",
           tabBarIcon: ({ color }) => (
-            <Feather name="shopping-bag" size={22} color={color} />
+            <ShoppingBag size={22} color={color} />
           ),
         }}
       />
@@ -60,7 +60,7 @@ const TabsLayout = () => {
           title: "Profil",
           headerTitle: "Profil Pelanggan",
           tabBarIcon: ({ color }) => (
-            <Feather name="user" size={22} color={color} />
+            <User size={22} color={color} />
           ),
         }}
       />

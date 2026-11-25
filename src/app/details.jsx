@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { Coffee } from "lucide-react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCart } from "../context/CartContext";
 
@@ -80,7 +80,7 @@ const Details = () => {
         {/* Product Showcase Container */}
         <View style={styles.showcaseCard}>
           <View style={styles.iconBox}>
-            <Feather name="coffee" size={40} color="#2D232E" />
+            <Coffee size={40} color="#2D232E" />
           </View>
           <View style={styles.tagBadge}>
             <Text style={styles.tagText}>{category.toUpperCase()}</Text>

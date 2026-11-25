@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { Coffee, MapPin, ArrowRight } from "lucide-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
@@ -54,7 +54,7 @@ const Index = () => {
             <Text style={styles.title}>Raditya</Text>
           </View>
           <View style={styles.locationBadge}>
-            <Feather name="map-pin" size={13} color="#2D232E" />
+            <MapPin size={13} color="#2D232E" />
             <Text style={styles.locationText}>Dago Bar, Bandung</Text>
           </View>
         </View>
@@ -77,7 +77,7 @@ const Index = () => {
             onPress={() => router.navigate("/menu")}
           >
             <Text style={styles.promoButtonText}>Lihat Menu</Text>
-            <Feather name="arrow-right" size={13} color="#2D232E" />
+            <ArrowRight size={13} color="#2D232E" />
           </Pressable>
         </View>
         {/* End Promo Banner Container */}
@@ -103,7 +103,7 @@ const Index = () => {
               }
             >
               <Text style={styles.heroButtonText}>Pesan Sekarang</Text>
-              <Feather name="arrow-right" size={14} color="#FFFFFF" />
+              <ArrowRight size={14} color="#FFFFFF" />
             </Pressable>
           </View>
         </View>
@@ -130,7 +130,7 @@ const Index = () => {
               }
             >
               <View style={styles.productIconBox}>
-                <Feather name="coffee" size={24} color="#2D232E" />
+                <Coffee size={24} color="#2D232E" />
               </View>
               <View style={styles.productInfo}>
                 <Text style={styles.productTitle}>{item.title}</Text>

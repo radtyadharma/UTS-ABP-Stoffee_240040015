@@ -8,7 +8,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { Coffee, Search, X } from "lucide-react-native";
 import { useRouter } from "expo-router";
 
 const Menu = () => {
@@ -106,7 +106,7 @@ const Menu = () => {
     <View style={styles.container}>
       {/* Search Bar Container */}
       <View style={styles.searchContainer}>
-        <Feather name="search" size={18} color="#474448" />
+        <Search size={18} color="#474448" />
         <TextInput
           placeholder="Cari menu kopi atau pastry..."
           placeholderTextColor="#8C8885"
@@ -116,7 +116,7 @@ const Menu = () => {
         />
         {search.length > 0 && (
           <Pressable onPress={() => setSearch("")}>
-            <Feather name="x" size={18} color="#474448" />
+            <X size={18} color="#474448" />
           </Pressable>
         )}
       </View>
@@ -170,7 +170,7 @@ const Menu = () => {
             }
           >
             <View style={styles.iconBox}>
-              <Feather name="coffee" size={24} color="#2D232E" />
+              <Coffee size={24} color="#2D232E" />
             </View>
             <View style={styles.info}>
               <Text style={styles.cardTitle}>{item.title}</Text>
