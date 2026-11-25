@@ -53,8 +53,8 @@ antre di kasir.
 | Home | Detail & Kustomisasi | Katalog Menu |
 |:---:|:---:|:---:|
 | ![Home](assets/screenshots/coffee_01_home.png) | ![Detail](assets/screenshots/coffee_02_product_detail.png) | ![Menu](assets/screenshots/coffee_03_menu_catalog.png) |
-| **Pesanan** | **Profil & Loyalitas** | **Palet Warna** |
-| ![Orders](assets/screenshots/coffee_04_orders_cart.png) | ![Profile](assets/screenshots/coffee_05_profile_rewards.png) | ![Palette](assets/screenshots/palette.png) |
+| **Promo Spesial (Modal)** | **Pesanan** | **Profil & Loyalitas** |
+| ![Promo](assets/screenshots/coffee_promo_modal.png) | ![Orders](assets/screenshots/coffee_04_orders_cart.png) | ![Profile](assets/screenshots/coffee_05_profile_rewards.png) |
 
 </div>
 
